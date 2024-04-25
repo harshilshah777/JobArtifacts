@@ -2,7 +2,7 @@ name: Workflow Name Deploy Webiste
 on:
   push:
     branches:
-      - main
+      - master
 jobs:
   Jobname_1_Test:
     runs-on: ubuntu-latest
