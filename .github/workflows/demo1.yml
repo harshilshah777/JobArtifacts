@@ -29,9 +29,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: dist-files-uploaded-job-artifacts
-          path: |
-            dist
-            package.json
+          path: dist
+          # path: |
+          #  dist
+          #  package.json
   Jobname_3_Deploy:
     needs: Jobname_2_Build
     runs-on: ubuntu-latest
