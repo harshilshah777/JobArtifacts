@@ -1,18 +1,42 @@
-name: Events Demo 1
-on: ...
+name: Workflow Name Deploy Webiste
+on:
+  push:
+    branches:
+      - main
 jobs:
-  deploy:
+  Jobname_1_Test:
     runs-on: ubuntu-latest
     steps:
-      - name: Output event data
-        run: echo "${{ toJSON(github.event) }}"
-      - name: Get code
+      - name: Step-1 Get code
         uses: actions/checkout@v3
-      - name: Install dependencies
+      - name: Step-2 Install dependencies
         run: npm ci
-      - name: Test code
+      - name: Step-3 Lint Code
+        run: npm run lint
+      - name: Step-4 Test code
         run: npm run test
-      - name: Build code
+  Jobname_2_Build:
+    needs: Jobname_1_Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step-1 Get code
+        uses: actions/checkout@v3
+      - name: Step-2 Install dependencies
+        run: npm ci
+      - name: Step-3 Build Website
         run: npm run build
-      - name: Deploy project
-        run: echo "Deploying..."
+      - name: Step-4 Upload Job Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-files-uploaded-job-artifacts
+          path: |
+            dist
+            package.json
+  Jobname_3_Deploy:
+    needs: Jobname_2_Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step-1 Deploy
+        run: echo "Deploying...."
+
+
